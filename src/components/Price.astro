@@ -1,0 +1,11 @@
+---
+import Text from './Text.astro';
+import { formatBdt } from '../data/site';
+
+interface Props {
+  amount: number;
+  from?: boolean;
+}
+const { amount, from = false } = Astro.props;
+---
+<span class="price-fig">{from && <span class="en">From </span>}<span class="visually-hidden">BDT </span><span class="taka" aria-hidden="true">৳</span>{formatBdt(amount)}{from && <span class="bn" lang="bn"> থেকে</span>}</span>

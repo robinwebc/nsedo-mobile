@@ -1,0 +1,64 @@
+---
+import Logo from './Logo.astro';
+import Text from './Text.astro';
+import { APP_RELEASES, EMAIL, page } from '../data/site';
+import { phones } from '../data/phones';
+---
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a class="logo-link" href={page('/')} aria-label="nSedo Mobile, home">
+        <Logo full />
+      </a>
+      <p><Text en="Bangladesh" bn="বাংলাদেশ" /></p>
+      <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+    </div>
+    <nav aria-label="Phones">
+      <p class="footer-label"><Text en="Phones" bn="ফোন" /></p>
+      <ul>
+        <li><a href={page('/phones/')}><Text en="All phones" bn="সব ফোন" /></a></li>
+        {phones.map((phone) => (
+          <li><a href={page(`/phones/${phone.slug}/`)}>{phone.name}</a></li>
+        ))}
+        <li><a href={page('/compare/')}><Text en="Compare" bn="তুলনা" /></a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Support">
+      <p class="footer-label"><Text en="Support" bn="সহায়তা" /></p>
+      <ul>
+        <li><a href={page('/support/#warranty')}><Text en="Warranty" bn="ওয়ারেন্টি" /></a></li>
+        <li><a href={page('/support/#service-centres')}><Text en="Service centres" bn="সার্ভিস সেন্টার" /></a></li>
+        <li><a href={page('/support/#updates')}><Text en="Software updates" bn="সফটওয়্যার আপডেট" /></a></li>
+        <li><a href={page('/support/#faq')}><Text en="Questions" bn="প্রশ্ন" /></a></li>
+        <li><a href={page('/support/#contact')}><Text en="Contact" bn="যোগাযোগ" /></a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Company">
+      <p class="footer-label"><Text en="Company" bn="প্রতিষ্ঠান" /></p>
+      <ul>
+        <li><a href={page('/about/')}><Text en="About" bn="পরিচিতি" /></a></li>
+        <li><a href={page('/about/#careers')}><Text en="Careers" bn="চাকরি" /></a></li>
+        <li><a href={page('/about/#press')}><Text en="Press" bn="সংবাদমাধ্যম" /></a></li>
+        <li><a href={page('/news/')}><Text en="News" bn="খবর" /></a></li>
+        <li>
+          <a href={APP_RELEASES} target="_blank" rel="noopener noreferrer">
+            <Text en="nSedo app" bn="nSedo অ্যাপ" />
+            <span class="visually-hidden"><Text en=" (opens in a new tab)" bn=" (নতুন ট্যাবে খুলবে)" /></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <nav aria-label="Legal">
+      <p class="footer-label"><Text en="Legal" bn="আইনি" /></p>
+      <ul>
+        <li><a href={page('/privacy/')}><Text en="Privacy" bn="গোপনীয়তা" /></a></li>
+        <li><a href={page('/terms/')}><Text en="Terms" bn="শর্তাবলি" /></a></li>
+        <li><a href={page('/warranty/')}><Text en="Warranty policy" bn="ওয়ারেন্টি নীতি" /></a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap footer-base">
+    <p><Text en="Prices in BDT (৳) are indicative. This website does not take payment." bn="টাকার (৳) দাম নির্দেশক। এই ওয়েবসাইট পেমেন্ট নেয় না।" /></p>
+    <p>© 2026 nSedo Mobile</p>
+  </div>
+</footer>

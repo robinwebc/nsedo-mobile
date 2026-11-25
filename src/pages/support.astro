@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Text from '../components/Text.astro';
+import { L, phones } from '../data/phones';
+import { centreStatus, centres, faqs } from '../data/support';
+import { APP_RELEASES, EMAIL, page } from '../data/site';
+---
+<Base
+  title="Support"
+  description="nSedo Mobile support: 12-month warranty, software updates, a placeholder service-centre list for Bangladesh, questions, and email contact."
+>
+  <main id="main">
+    <div class="wrap">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/support/'), label: L('Support', 'সহায়তা') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="Support" bn="সহায়তা" /></h1>
+        <p class="lede">
+          <Text
+            en="Warranty, updates, and how to write to us. The service-centre table below is a placeholder. It is not a list of open counters."
+            bn="ওয়ারেন্টি, আপডেট, এবং কীভাবে আমাদের লিখবেন। নিচের সার্ভিস সেন্টারের ছক প্লেসহোল্ডার। এটি খোলা কাউন্টারের তালিকা নয়।"
+          />
+        </p>
+      </header>
+
+      <section class="section" id="warranty" style="padding-top: 2.5rem">
+        <h2><Text en="Warranty" bn="ওয়ারেন্টি" /></h2>
+        <p class="lede">
+          <Text
+            en="Twelve months for a manufacturing defect, with a proof of purchase, for customers in Bangladesh. Cracked glass, liquid damage, and a repair we did not authorise are outside it. The phones are not given a water or dust rating."
+            bn="বারো মাস, উৎপাদনের ত্রুটির জন্য, ক্রয়ের প্রমাণসহ, বাংলাদেশের ক্রেতাদের জন্য। ফাটা কাচ, পানির ক্ষতি, এবং আমাদের অনুমতি ছাড়া মেরামত এর বাইরে। ফোনের পানি বা ধুলোর রেটিং দেওয়া হয়নি।"
+          />
+        </p>
+        <p class="fine" style="margin-top: 0.8rem">
+          <a href={page('/warranty/')}><Text en="Read the warranty policy" bn="ওয়ারেন্টি নীতি পড়ুন" /></a>
+        </p>
+      </section>
+
+      <section class="section" id="updates" style="padding-top: 0">
+        <h2><Text en="Software updates" bn="সফটওয়্যার আপডেট" /></h2>
+        <p class="lede">
+          <Text
+            en="On the phone, open Settings, then System, then Software update. You can use Wi-Fi or mobile data. All three models ship with nSedo OS 2, based on Android 15, security patch November 2026."
+            bn="ফোনে Settings, তারপর System, তারপর Software update খুলুন। ওয়াই-ফাই বা মোবাইল ডেটা ব্যবহার করা যায়। তিনটি মডেলই আসে nSedo OS 2-তে, Android 15-এর উপর, সিকিউরিটি প্যাচ নভেম্বর ২০২৬।"
+          />
+        </p>
+        <div class="table-wrap">
+          <table class="spec-table">
+            <caption class="visually-hidden"><Text en="Update schedule" bn="আপডেটের সময়সূচি" /></caption>
+            <thead>
+              <tr>
+                <th scope="col"><Text en="Phone" bn="ফোন" /></th>
+                <th scope="col"><Text en="OS upgrades" bn="ওএস আপগ্রেড" /></th>
+                <th scope="col"><Text en="Security patches" bn="সিকিউরিটি প্যাচ" /></th>
+              </tr>
+            </thead>
+            <tbody>
+              {phones.map((phone) => (
+                <tr>
+                  <th scope="row"><a href={page(`/phones/${phone.slug}/`)}>{phone.name}</a></th>
+                  <td><Text text={phone.specs['os-upgrades']} /></td>
+                  <td><Text text={phone.specs['os-security']} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          <Text en="The nSedo social app is updated from its own " bn="nSedo সামাজিক অ্যাপ আপডেট হয় তার নিজের " />
+          <a href={APP_RELEASES} target="_blank" rel="noopener noreferrer"><Text en="GitHub releases" bn="GitHub রিলিজ" /><span class="visually-hidden"><Text en=" (opens in a new tab)" bn=" (নতুন ট্যাবে খুলবে)" /></span></a>
+          <Text en=", not by the phone’s system updater." bn=" থেকে, ফোনের সিস্টেম আপডেটার দিয়ে নয়।" />
+        </p>
+      </section>
+
+      <section class="section" id="service-centres" style="padding-top: 0">
+        <h2><Text en="Service centres" bn="সার্ভিস সেন্টার" /></h2>
+        <div class="notice" role="note">
+          <h2><Text en="Placeholder list. To be updated." bn="প্লেসহোল্ডার তালিকা। হালনাগাদ হবে।" /></h2>
+          <p>
+            <Text
+              en="These are not open service centres. The rows name cities and areas we expect to confirm. There is no street address because none is confirmed. Do not travel on the basis of this table."
+              bn="এগুলো খোলা সার্ভিস সেন্টার নয়। সারিগুলোতে শহর ও এলাকার নাম, যেগুলো আমরা নিশ্চিত করার কথা ভাবছি। রাস্তার ঠিকানা নেই, কারণ কিছু নিশ্চিত হয়নি। এই ছকের ভিত্তিতে কোথাও যাবেন না।"
+            />
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="centres">
+            <caption class="visually-hidden"><Text en="Placeholder service areas, not open centres" bn="প্লেসহোল্ডার সার্ভিস এলাকা, খোলা সেন্টার নয়" /></caption>
+            <thead>
+              <tr>
+                <th scope="col"><Text en="City" bn="শহর" /></th>
+                <th scope="col"><Text en="Area to confirm" bn="নিশ্চিত করার এলাকা" /></th>
+                <th scope="col"><Text en="Status" bn="অবস্থা" /></th>
+              </tr>
+            </thead>
+            <tbody>
+              {centres.map((centre) => (
+                <tr>
+                  <th scope="row"><Text text={centre.city} /></th>
+                  <td><Text text={centre.area} /></td>
+                  <td><Text text={centreStatus} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="faq" style="padding-top: 0">
+        <h2><Text en="Questions" bn="প্রশ্ন" /></h2>
+        <div class="faq">
+          {faqs.map((item) => (
+            <details>
+              <summary><Text text={item.q} /></summary>
+              <Text block text={item.a} />
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section class="section" id="contact" style="padding-top: 0">
+        <h2><Text en="Contact" bn="যোগাযোগ" /></h2>
+        <p class="lede">
+          <Text
+            en={`This form opens an email to ${EMAIL}. Nothing is stored on this website. If the email app does not open, write to that address yourself.`}
+            bn={`এই ফর্ম ${EMAIL}-এ একটি ইমেইল খোলে। এই ওয়েবসাইটে কিছু জমা হয় না। ইমেইল অ্যাপ না খুললে নিজে সেই ঠিকানায় লিখুন।`}
+          />
+        </p>
+        <form id="contact-form" class="form-grid" style="margin-top: 1.25rem" action={`mailto:${EMAIL}`} method="post" enctype="text/plain">
+          <label class="field">
+            <Text en="Name" bn="নাম" />
+            <input id="contact-name" name="name" type="text" autocomplete="name" required />
+          </label>
+          <label class="field">
+            <Text en="Email" bn="ইমেইল" />
+            <input id="contact-email" name="email" type="email" autocomplete="email" required />
+          </label>
+          <label class="field">
+            <Text en="Phone, if you want a call back" bn="ফোন, ফিরতি কল চাইলে" />
+            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" />
+          </label>
+          <fieldset>
+            <legend><Text en="Topic" bn="বিষয়" /></legend>
+            <div class="topics">
+              <label class="topic"><input type="radio" name="topic" value="Product question" checked /><Text en="Product question" bn="পণ্য নিয়ে প্রশ্ন" /></label>
+              <label class="topic"><input type="radio" name="topic" value="Warranty" /><Text en="Warranty" bn="ওয়ারেন্টি" /></label>
+              <label class="topic"><input type="radio" name="topic" value="Press" /><Text en="Press" bn="সংবাদমাধ্যম" /></label>
+              <label class="topic"><input type="radio" name="topic" value="Careers" /><Text en="Careers" bn="চাকরি" /></label>
+              <label class="topic"><input type="radio" name="topic" value="Other" /><Text en="Other" bn="অন্যান্য" /></label>
+            </div>
+          </fieldset>
+          <label class="field">
+            <Text en="Message" bn="বার্তা" />
+            <textarea id="contact-message" name="message" required></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit"><Text en="Email us" bn="ইমেইল করুন" /></button>
+        </form>
+        <noscript>
+          <p class="fine" style="margin-top: 1rem">
+            <Text en="JavaScript is off. Email " bn="জাভাস্ক্রিপ্ট বন্ধ। ইমেইল করুন " />
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <Text en=" directly." bn=" ঠিকানায়।" />
+          </p>
+        </noscript>
+      </section>
+    </div>
+  </main>
+</Base>

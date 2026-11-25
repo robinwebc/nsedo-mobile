@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Text from '../../components/Text.astro';
+import PhoneView from '../../components/Phone.astro';
+import Price from '../../components/Price.astro';
+import { groups, L, phones, storageLabel, type Phone } from '../../data/phones';
+import { absPage, formatBdt, mailto, page } from '../../data/site';
+
+export function getStaticPaths() {
+  return phones.map((phone) => ({ params: { slug: phone.slug }, props: { phone } }));
+}
+
+interface Props {
+  phone: Phone;
+}
+const { phone } = Astro.props;
+const defaultStorage = phone.storage[0];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: phone.name,
+  brand: { '@type': 'Brand', name: 'nSedo Mobile' },
+  sku: phone.slug.toUpperCase(),
+  description: `${phone.summary.en} Indicative price from BDT ${formatBdt(phone.priceFrom)}. This website does not take payment.`,
+  url: absPage(`/phones/${phone.slug}/`),
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'BDT',
+    price: String(phone.priceFrom),
+    url: absPage(`/phones/${phone.slug}/`),
+    description: 'Indicative price in BDT. No online checkout and no stock reservation.',
+  },
+};
+---
+<Base title={phone.name} description={`${phone.name}: ${phone.summary.en} From ৳${formatBdt(phone.priceFrom)}, indicative.`} jsonLd={jsonLd}>
+  <main id="main">
+    <div class="wrap">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/phones/'), label: L('Phones', 'ফোন') },
+        { href: page(`/phones/${phone.slug}/`), label: L(phone.name, phone.name) },
+      ]} />
+      <div class="config product-top" style="padding-top: 1.5rem">
+        <div class="stage">
+          {phone.colors.map((color) => (
+            <div class:list={['pair', { 'is-default': color.id === phone.defaultColor }]} data-color={color.id}>
+              <figure>
+                <PhoneView
+                  uid={`${phone.slug}-${color.id}-back`}
+                  view="back"
+                  back={color.back}
+                  chassis={color.chassis}
+                  tone={color.tone}
+                  cameras={phone.cameras}
+                  label={L(`${phone.name}, back, ${color.name.en}. Flat preview.`, `${phone.name}, পেছন, ${color.name.bn}। সমতল প্রিভিউ।`)}
+                />
+                <figcaption><Text en="Back" bn="পেছন" /></figcaption>
+              </figure>
+              <figure>
+                <PhoneView
+                  uid={`${phone.slug}-${color.id}-front`}
+                  view="front"
+                  back={color.back}
+                  chassis={color.chassis}
+                  tone={color.tone}
+                  cameras={phone.cameras}
+                  label={L(`${phone.name}, front, ${color.name.en}. Flat preview.`, `${phone.name}, সামনে, ${color.name.bn}। সমতল প্রিভিউ।`)}
+                />
+                <figcaption><Text en="Front" bn="সামনে" /></figcaption>
+              </figure>
+            </div>
+          ))}
+          <p class="fine" style="margin-top: 0.8rem"><Text en="Flat preview of the finish, not a photograph." bn="রঙের সমতল প্রিভিউ, আলোকচিত্র নয়।" /></p>
+        </div>
+        <div class="panel">
+          <p class="tier"><Text text={phone.tier} /></p>
+          <h1 style="margin: 0.25rem 0 0.6rem">{phone.name}</h1>
+          <p><Text text={phone.summary} /></p>
+          <p class="price-lg" style="margin-top: 1rem">
+            {phone.storage.map((option, index) => (
+              <span class:list={['amount', { 'is-default': index === 0 }]} data-storage={option.id}>
+                <Price amount={option.price} />
+              </span>
+            ))}
+          </p>
+          <p class="fine"><Text en="Indicative price in BDT for the selected memory. This page does not take payment." bn="নির্বাচিত মেমরির নির্দেশক দাম, টাকায়। এই পাতা পেমেন্ট নেয় না।" /></p>
+
+          <fieldset style="margin-top: 1.25rem">
+            <legend><Text en="Colour" bn="রং" /></legend>
+            <div class="choice-row">
+              {phone.colors.map((color) => (
+                <label class="swatch">
+                  <input type="radio" name="color" value={color.id} checked={color.id === phone.defaultColor} />
+                  <span class="chip" style={`background:${color.back}`}></span>
+                  <Text text={color.name} />
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><Text en="Memory" bn="মেমরি" /></legend>
+            <div class="choice-row">
+              {phone.storage.map((option, index) => (
+                <label class="storage-opt">
+                  <input type="radio" name="storage" value={option.id} checked={index === 0} />
+                  <span>{storageLabel(option)} · <span class="visually-hidden">BDT </span><span aria-hidden="true">৳</span>{formatBdt(option.price)}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div class="actions">
+            <a class="btn btn-primary" href={mailto(`Notify me — ${phone.name}`, `Please write to me when the ${phone.name} can be ordered in Bangladesh.\n`)}>
+              <Text en="Notify me" bn="জানান" />
+            </a>
+            <a class="btn btn-ghost" href={page('/support/#service-centres')}><Text en="Find a store" bn="দোকান খুঁজুন" /></a>
+          </div>
+          <p class="fine" style="margin-top: 0.7rem">
+            <Text
+              en="The store list is a placeholder until addresses are confirmed. Notify me only opens your email app."
+              bn="ঠিকানা নিশ্চিত হওয়ার আগে দোকানের তালিকা প্লেসহোল্ডার। জানান শুধু আপনার ইমেইল অ্যাপ খোলে।"
+            />
+          </p>
+        </div>
+      </div>
+
+      <dl class="highlights">
+        {phone.highlights.map((item) => (
+          <div>
+            <dt><Text text={item.label} /></dt>
+            <dd><Text text={item.value} /></dd>
+          </div>
+        ))}
+      </dl>
+
+      <h2 id="specs"><Text en="Specifications" bn="স্পেসিফিকেশন" /></h2>
+      <div class="table-wrap">
+        <table class="spec-table">
+          <caption class="visually-hidden">{phone.name} <Text en="specifications" bn="স্পেসিফিকেশন" /></caption>
+          {groups.map((group) => (
+            <tbody>
+              <tr>
+                <th scope="colgroup" colspan="2"><Text text={group.label} /></th>
+              </tr>
+              {group.rows.map((row) => (
+                <tr>
+                  <th scope="row"><Text text={row.label} /></th>
+                  <td><Text text={phone.specs[row.id]} /></td>
+                </tr>
+              ))}
+            </tbody>
+          ))}
+        </table>
+      </div>
+
+      <h2 id="box"><Text en="In the box" bn="বক্সে" /></h2>
+      <ul class="box-list">
+        {phone.box.map((item) => (
+          <li><Text text={item} /></li>
+        ))}
+      </ul>
+      <p class="fine" style="margin: 0.8rem 0 2.5rem"><Text en="Earphones are not included." bn="ইয়ারফোন থাকে না।" /></p>
+
+      <p><a class="btn btn-ghost" href={page('/compare/')}><Text en="Compare with the other two" bn="অন্য দুটির সঙ্গে তুলনা" /></a></p>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../data/phones';
+
+interface Props {
+  en?: string;
+  bn?: string;
+  text?: Lang;
+  block?: boolean;
+}
+
+const { en, bn, text, block = false } = Astro.props;
+const english = text?.en ?? en ?? '';
+const bangla = text?.bn ?? bn ?? '';
+---
+{block ? (
+  <>
+    <p class="en">{english}</p>
+    <p class="bn" lang="bn">{bangla}</p>
+  </>
+) : (
+  <span class="en">{english}</span><span class="bn" lang="bn">{bangla}</span>
+)}

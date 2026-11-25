@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Text from '../components/Text.astro';
+import { L } from '../data/phones';
+import { EMAIL, page } from '../data/site';
+---
+<Base
+  title="Privacy"
+  description="Privacy notice for the nSedo Mobile website. No accounts, no analytics, no payment data. Language choice stays in your browser."
+>
+  <main id="main">
+    <article class="wrap prose" style="padding-bottom: 4rem">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/privacy/'), label: L('Privacy', 'গোপনীয়তা') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="Privacy" bn="গোপনীয়তা" /></h1>
+        <p class="fine"><Text en="25 November 2026" bn="২৫ নভেম্বর ২০২৬" /></p>
+      </header>
+      <Text block en="This is the privacy notice for the nSedo Mobile website. It describes this website only. The nSedo social app has its own notice, published with that product." bn="এটি nSedo Mobile ওয়েবসাইটের গোপনীয়তা নোটিশ। এটি শুধু এই ওয়েবসাইটের কথা বলে। nSedo সামাজিক অ্যাপের নিজস্ব নোটিশ সেই পণ্যের সঙ্গে প্রকাশিত।" />
+      <h2><Text en="What this site stores" bn="এই সাইট কী রাখে" /></h2>
+      <Text block en="The pages are static. There is no account, no basket, and no payment. We do not run an analytics script and we do not set an advertising cookie." bn="পাতাগুলো স্থির। কোনো অ্যাকাউন্ট নেই, ঝুড়ি নেই, পেমেন্ট নেই। আমরা অ্যানালিটিক্স স্ক্রিপ্ট চালাই না এবং বিজ্ঞাপনের কুকি বসাই না।" />
+      <Text block en="If you choose বাংলা or EN, the site stores that choice in localStorage on your device, under the key nsedo-lang. It is not sent to us. Clearing site data for this address removes it." bn="আপনি বাংলা বা EN বেছে নিলে সাইট সেই পছন্দ আপনার ডিভাইসের localStorage-এ রাখে, nsedo-lang নামে। সেটি আমাদের কাছে যায় না। এই ঠিকানার সাইট ডেটা মুছলে সেটিও মুছে যায়।" />
+      <h2><Text en="Email" bn="ইমেইল" /></h2>
+      <Text block en={`Notify me, the contact form, and the address links open your own email program, addressed to ${EMAIL}. The message is handled by your email provider. This website does not receive a copy through a form backend, because there is no form backend.`} bn={`জানান, যোগাযোগ ফর্ম, এবং ঠিকানার লিঙ্ক আপনার নিজের ইমেইল প্রোগ্রাম খোলে, প্রাপক ${EMAIL}। বার্তা আপনার ইমেইল সেবাদাতা সামলায়। এই ওয়েবসাইট ফর্ম ব্যাকএন্ড দিয়ে কোনো কপি পায় না, কারণ কোনো ফর্ম ব্যাকএন্ড নেই।`} />
+      <h2><Text en="Hosting" bn="হোস্টিং" /></h2>
+      <Text block en="The site is hosted on GitHub Pages. GitHub may keep ordinary server logs. Their privacy statement is at https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement ." bn="সাইটটি GitHub Pages-এ হোস্ট করা। GitHub সাধারণ সার্ভার লগ রাখতে পারে। তাদের গোপনীয়তা বিবৃতি আছে https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement ঠিকানায়।" />
+      <h2><Text en="Questions" bn="প্রশ্ন" /></h2>
+      <Text block en={`Write to ${EMAIL} if you have a question about this notice. We do not sell personal information. There is no payment data here to sell, because the site does not take payment.`} bn={`এই নোটিশ নিয়ে প্রশ্ন থাকলে ${EMAIL}-এ লিখুন। আমরা ব্যক্তিগত তথ্য বিক্রি করি না। বিক্রির মতো পেমেন্ট তথ্যও এখানে নেই, কারণ সাইট পেমেন্ট নেয় না।`} />
+    </article>
+  </main>
+</Base>

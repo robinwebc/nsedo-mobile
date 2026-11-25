@@ -1,0 +1,248 @@
+---
+import Base from '../layouts/Base.astro';
+import Text from '../components/Text.astro';
+import Phone from '../components/Phone.astro';
+import Price from '../components/Price.astro';
+import { phones } from '../data/phones';
+import { absAsset, absPage, APP_RELEASES, page } from '../data/site';
+import { L } from '../data/phones';
+
+const x1 = phones[0];
+const ember = x1.colors.find((color) => color.id === 'ember')!;
+const label = (view: 'front' | 'back') =>
+  L(
+    `nSedo X1, ${view} view, Ember finish. Flat preview.`,
+    `nSedo X1, ${view === 'front' ? 'সামনের' : 'পেছনের'} দিক, অঙ্গার রং। সমতল প্রিভিউ।`,
+  );
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${absPage('/')}#organization`,
+    name: 'nSedo Mobile',
+    url: absPage('/'),
+    email: 'robinwebc@gmail.com',
+    logo: absAsset('icon-512.png'),
+    founder: { '@type': 'Person', name: 'Robin', url: 'https://github.com/robinwebc' },
+    address: { '@type': 'PostalAddress', addressCountry: 'BD' },
+    sameAs: ['https://github.com/robinwebc', 'https://github.com/robinwebc/nSedo'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'nSedo Mobile',
+    url: absPage('/'),
+    inLanguage: ['en', 'bn'],
+    publisher: { '@id': `${absPage('/')}#organization` },
+  },
+];
+---
+<Base
+  title="nSedo Mobile"
+  description="nSedo Mobile makes the X1, A5, and Go Android phones for Bangladesh. Indicative prices in BDT. This site has no checkout."
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <section class="wrap hero">
+      <div>
+        <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="Flagship · Bangladesh" bn="ফ্ল্যাগশিপ · বাংলাদেশ" /></p>
+        <h1>nSedo X1</h1>
+        <p class="lede">
+          <Text
+            en="A phone for long days in hard sun. A 6.78-inch 120 Hz AMOLED, a three-camera column with a 3× telephoto, and a 5,500 mAh battery with 80 W charging."
+            bn="কড়া রোদে দীর্ঘ দিনের জন্য একটা ফোন। ৬.৭৮ ইঞ্চি ১২০ Hz AMOLED, ৩× টেলিফোটোসহ তিন ক্যামেরার কলাম, আর ৮০ W চার্জের ৫,৫০০ mAh ব্যাটারি।"
+          />
+        </p>
+        <div class="price-row">
+          <p class="price-lg"><Price amount={x1.priceFrom} from /></p>
+          <p class="fine"><Text en="Indicative price in taka. No checkout on this site." bn="টাকায় নির্দেশক দাম। এই সাইটে চেকআউট নেই।" /></p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href={page('/phones/x1/')}><Text en="View the X1" bn="X1 দেখুন" /></a>
+          <a class="btn btn-ghost" href={page('/compare/')}><Text en="Compare the three" bn="তিনটি তুলনা করুন" /></a>
+        </div>
+      </div>
+      <div class="cluster">
+        <Phone uid="hero-back" view="back" back={ember.back} chassis={ember.chassis} tone={ember.tone} cameras={3} label={label('back')} />
+        <Phone uid="hero-front" view="front" back={ember.back} chassis={ember.chassis} tone={ember.tone} cameras={3} label={label('front')} />
+      </div>
+    </section>
+
+    <div class="wrap">
+      <dl class="facts">
+        <div>
+          <dt><Text en="Display" bn="ডিসপ্লে" /></dt>
+          <dd>6.78″ AMOLED, 120 Hz</dd>
+        </div>
+        <div>
+          <dt><Text en="Camera" bn="ক্যামেরা" /></dt>
+          <dd><Text en="50 MP · 3× optical" bn="৫০ MP · ৩× অপটিক্যাল" /></dd>
+        </div>
+        <div>
+          <dt><Text en="Battery" bn="ব্যাটারি" /></dt>
+          <dd>5,500 mAh · 80 W</dd>
+        </div>
+        <div>
+          <dt><Text en="Software" bn="সফটওয়্যার" /></dt>
+          <dd>nSedo OS 2 · Android 15</dd>
+        </div>
+      </dl>
+    </div>
+
+    <section class="section" aria-labelledby="range-title">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="range-title"><Text en="The range" bn="সারি" /></h2>
+          <p class="lede"><Text en="Three phones on the same idea. Read the specification before you trust the price." bn="একই ভাবনায় তিনটি ফোন। দাম বিশ্বাস করার আগে স্পেসিফিকেশন পড়ুন।" /></p>
+        </div>
+        <ul class="lineup">
+          {phones.map((phone) => {
+            const color = phone.colors.find((item) => item.id === phone.defaultColor)!;
+            return (
+              <li>
+                <a href={page(`/phones/${phone.slug}/`)}>
+                  <Phone
+                    uid={`line-${phone.slug}`}
+                    view="back"
+                    back={color.back}
+                    chassis={color.chassis}
+                    tone={color.tone}
+                    cameras={phone.cameras}
+                    label={L(`${phone.name}, back view, ${color.name.en}`, `${phone.name}, পেছনের দিক, ${color.name.bn}`)}
+                  />
+                  <p class="tier"><Text text={phone.tier} /></p>
+                  <h3>{phone.name}</h3>
+                  <p class="meta"><Text text={phone.highlights[0].value} /> · <Text text={phone.highlights[2].value} /></p>
+                  <p><Price amount={phone.priceFrom} from /></p>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0" aria-labelledby="display-title">
+      <div class="wrap split">
+        <div class="split-copy">
+          <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="Display" bn="ডিসপ্লে" /></p>
+          <h2 id="display-title"><Text en="Readable at noon" bn="দুপুরেও পড়া যায়" /></h2>
+          <p class="lede">
+            <Text
+              en="The X1 panel is a 6.78-inch AMOLED, 1260 × 2800, up to 120 Hz. Peak brightness is specified at 1,600 nits, so body text is meant to stay legible outdoors. Typical brightness is 800 nits. The glass is chemically strengthened. We do not put another company’s toughness logo on it."
+              bn="X1-এর প্যানেল ৬.৭৮ ইঞ্চি AMOLED, ১২৬০ × ২৮০০, সর্বোচ্চ ১২০ Hz। পিক উজ্জ্বলতা ১,৬০০ নিট নির্দিষ্ট, যাতে বাইরেও লেখা পড়া যায়। সাধারণ উজ্জ্বলতা ৮০০ নিট। কাচ রাসায়নিকভাবে শক্ত করা। আমরা অন্য কোম্পানির দৃঢ়তার লোগো বসাই না।"
+            />
+          </p>
+        </div>
+        <div class="panel-phone">
+          <Phone uid="display-front" view="front" back={ember.back} chassis={ember.chassis} tone={ember.tone} cameras={3} label={label('front')} />
+          <p class="caption fine"><Text en="X1, front, Ember. Flat preview." bn="X1, সামনে, অঙ্গার। সমতল প্রিভিউ।" /></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-dark section" aria-labelledby="camera-title">
+      <div class="wrap split reverse">
+        <div class="split-copy">
+          <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="Camera" bn="ক্যামেরা" /></p>
+          <h2 id="camera-title"><Text en="A column of three lenses" bn="তিন লেন্সের এক কলাম" /></h2>
+          <p class="lede">
+            <Text
+              en="Main, ultrawide, and 3× telephoto. Each rear camera on the X1 is 50 MP. The main camera and the telephoto have optical stabilisation. nSedo OS is set to keep colour closer to the scene, rather than lifting it for a feed."
+              bn="মেইন, আল্ট্রাওয়াইড, ও ৩× টেলিফোটো। X1-এর প্রতিটি পেছনের ক্যামেরা ৫০ MP। মেইন ও টেলিফোটোতে অপটিক্যাল স্টেবিলাইজেশন। nSedo OS রং দৃশ্যের কাছাকাছি রাখে, ফিডের জন্য তুলে দেয় না।"
+            />
+          </p>
+          <div class="stat-grid">
+            <p><span class="stat-num">50 MP</span><Text en="Main, 1/1.3-inch, f/1.6, OIS" bn="মেইন, ১/১.৩-ইঞ্চি, f/1.6, OIS" /></p>
+            <p><span class="stat-num">120°</span><Text en="Ultrawide, 50 MP, f/2.0" bn="আল্ট্রাওয়াইড, ৫০ MP, f/2.0" /></p>
+            <p><span class="stat-num">3×</span><Text en="Telephoto, 50 MP, f/2.6, OIS" bn="টেলিফোটো, ৫০ MP, f/2.6, OIS" /></p>
+          </div>
+        </div>
+        <div class="panel-phone">
+          <Phone uid="camera-back" view="back" back={ember.back} chassis={ember.chassis} tone={ember.tone} cameras={3} label={label('back')} />
+          <p class="caption fine"><Text en="X1, back, Ember. Flat preview." bn="X1, পেছন, অঙ্গার। সমতল প্রিভিউ।" /></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="battery-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="Battery" bn="ব্যাটারি" /></p>
+          <h2 id="battery-title"><Text en="Sized for the whole day" bn="সারা দিনের মাপ" /></h2>
+          <p class="lede">
+            <Text
+              en="The X1 is 5,500 mAh, with 80 W wired charging and a charger of that rate in the box. A full charge from empty is specified at about 50 minutes, screen off. Wireless charging, 50 W, is on the X1 only. The A5 is 5,200 mAh and 45 W. The Go is 5,000 mAh and 18 W."
+              bn="X1 ৫,৫০০ mAh, ৮০ W তার-চার্জ, আর বক্সে সেই হারের চার্জার। খালি থেকে পূর্ণ চার্জের স্পেসিফিকেশন প্রায় ৫০ মিনিট, স্ক্রিন বন্ধ। ৫০ W তার ছাড়া চার্জ শুধু X1-এ। A5 ৫,২০০ mAh ও ৪৫ W। Go ৫,০০০ mAh ও ১৮ W।"
+            />
+          </p>
+        </div>
+        <div class="meter" role="img" aria-label="Rated battery capacity: X1 5500 mAh, A5 5200 mAh, Go 5000 mAh">
+          <div class="meter-row">
+            <span class="meter-name">X1</span>
+            <span class="meter-track"><span class="meter-fill" style="width: 100%"></span></span>
+            <span class="meter-val">5,500 mAh</span>
+          </div>
+          <div class="meter-row">
+            <span class="meter-name">A5</span>
+            <span class="meter-track"><span class="meter-fill" style="width: 94.5%"></span></span>
+            <span class="meter-val">5,200 mAh</span>
+          </div>
+          <div class="meter-row">
+            <span class="meter-name">Go</span>
+            <span class="meter-track"><span class="meter-fill" style="width: 90.9%"></span></span>
+            <span class="meter-val">5,000 mAh</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0" aria-labelledby="os-title">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="Software" bn="সফটওয়্যার" /></p>
+          <h2 id="os-title"><Text en="nSedo OS, on Android" bn="nSedo OS, Android-এর উপর" /></h2>
+          <p class="lede">
+            <Text
+              en="nSedo OS 2 runs on Android 15. You keep the Android app library. The interface is ours: Bangla and English, and an update schedule stated per model. The launch security patch is November 2026."
+              bn="nSedo OS 2 চলে Android 15-এ। Android-এর অ্যাপ লাইব্রেরি থাকে। ইন্টারফেস আমাদের: বাংলা ও ইংরেজি, আর মডেল অনুযায়ী আপডেটের সময়সূচি। লঞ্চ সিকিউরিটি প্যাচ নভেম্বর ২০২৬।"
+            />
+          </p>
+          <ul class="plain-list">
+            <li><Text en="X1 — four OS upgrades, five years of security patches." bn="X1 — চারটি ওএস আপগ্রেড, পাঁচ বছর সিকিউরিটি প্যাচ।" /></li>
+            <li><Text en="A5 — two OS upgrades, four years of security patches." bn="A5 — দুটি ওএস আপগ্রেড, চার বছর সিকিউরিটি প্যাচ।" /></li>
+            <li><Text en="Go — one OS upgrade, three years of security patches." bn="Go — একটি ওএস আপগ্রেড, তিন বছর সিকিউরিটি প্যাচ।" /></li>
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="Also from this house" bn="একই ঘর থেকে" /></p>
+          <h2 id="app-title"><Text en="The nSedo app" bn="nSedo অ্যাপ" /></h2>
+          <p class="lede">
+            <Text
+              en="nSedo is the social app: short posts, follows, messages, calls, and small live rooms. It is not preinstalled on these phones, and this website does not charge for it. The Android package is published as a GitHub release."
+              bn="nSedo সামাজিক অ্যাপ: ছোট পোস্ট, ফলো, বার্তা, কল, ও ছোট লাইভ রুম। এই ফোনগুলোতে আগে থেকে বসানো থাকে না, এবং এই সাইট এর জন্য টাকা নেয় না। Android প্যাকেজ GitHub রিলিজ হিসেবে প্রকাশিত।"
+            />
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href={APP_RELEASES} target="_blank" rel="noopener noreferrer">
+              <Text en="App releases" bn="অ্যাপ রিলিজ" />
+              <span class="visually-hidden"><Text en=" (opens in a new tab)" bn=" (নতুন ট্যাবে খুলবে)" /></span>
+            </a>
+            <a class="btn btn-ghost" href={page('/news/nsedo-app/')}><Text en="Read the note" bn="নোট পড়ুন" /></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band-dark section">
+      <div class="wrap cta-band">
+        <div>
+          <h2><Text en="Put the three side by side" bn="তিনটিকে পাশাপাশি রাখুন" /></h2>
+          <p class="lede"><Text en="Display, camera, battery, network, and the update schedule, on one table." bn="ডিসপ্লে, ক্যামেরা, ব্যাটারি, নেটওয়ার্ক, ও আপডেটের সময়সূচি, এক ছকে।" /></p>
+        </div>
+        <a class="btn btn-primary" href={page('/compare/')}><Text en="Open the comparison" bn="তুলনা খুলুন" /></a>
+      </div>
+    </section>
+  </main>
+</Base>

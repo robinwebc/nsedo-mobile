@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: Manrope;
+        src: url("../src/fonts/manrope-latin.woff2") format("woff2");
+        font-weight: 200 800;
+        font-style: normal;
+      }
+      html, body { margin: 0; width: 1200px; height: 630px; background: #14202b; color: #f4f1eb; font-family: Manrope, sans-serif; }
+      .frame { width: 1200px; height: 630px; display: grid; grid-template-columns: 1.2fr 0.8fr; }
+      .copy { padding: 84px 72px; display: flex; flex-direction: column; justify-content: center; }
+      .mark { width: 76px; height: 76px; }
+      h1 { font-size: 76px; line-height: 0.92; letter-spacing: -0.045em; font-weight: 700; margin: 26px 0 0; }
+      .sub { margin-top: 10px; font-size: 18px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #d5dde3; }
+      .rule { width: 64px; height: 4px; background: #e4572e; margin: 32px 0 26px; }
+      .line { font-size: 34px; font-weight: 600; letter-spacing: -0.03em; margin: 0; }
+      .models { margin-top: 12px; color: #d5dde3; font-size: 22px; font-weight: 500; }
+      .stage { display: grid; place-items: center; }
+      .stage svg { width: 250px; height: auto; filter: drop-shadow(0 18px 24px rgba(0,0,0,.35)); }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="copy">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#14202B" stroke="#F4F1EB" stroke-width="1.25"></rect>
+          <rect x="7" y="6.5" width="5.25" height="19" rx="2.1" fill="#F4F1EB"></rect>
+          <rect x="14.75" y="6.5" width="10.25" height="5.25" rx="2.1" fill="#F4F1EB"></rect>
+          <rect x="19.75" y="15.25" width="5.25" height="10.25" rx="2.1" fill="#E4572E"></rect>
+        </svg>
+        <h1>nSedo</h1>
+        <div class="sub">Mobile</div>
+        <div class="rule"></div>
+        <p class="line">Phones for Bangladesh</p>
+        <p class="models">X1 · A5 · Go</p>
+      </div>
+      <div class="stage">
+        <svg viewBox="0 0 260 540" aria-hidden="true">
+          <rect x="8" y="118" width="8" height="32" rx="2" fill="#C9CED4"></rect>
+          <rect x="8" y="158" width="8" height="52" rx="2" fill="#C9CED4"></rect>
+          <rect x="244" y="146" width="8" height="70" rx="2" fill="#C9CED4"></rect>
+          <rect x="16" y="8" width="228" height="524" rx="46" fill="#8A3418"></rect>
+          <rect x="24" y="16" width="212" height="508" rx="38" fill="#C6532C"></rect>
+          <rect x="36" y="34" width="108" height="194" rx="30" fill="#121416"></rect>
+          <circle cx="74" cy="74" r="21" fill="#1A1D21"></circle>
+          <circle cx="74" cy="74" r="15.6" fill="#050607"></circle>
+          <circle cx="74" cy="122" r="21" fill="#1A1D21"></circle>
+          <circle cx="74" cy="122" r="15.6" fill="#050607"></circle>
+          <circle cx="74" cy="170" r="21" fill="#1A1D21"></circle>
+          <circle cx="74" cy="170" r="15.6" fill="#050607"></circle>
+          <rect x="112" y="60" width="10" height="24" rx="4" fill="#F3EEE6"></rect>
+          <text x="130" y="492" text-anchor="middle" fill="#F4F1EB" fill-opacity="0.7" font-family="Manrope, sans-serif" font-size="16" font-weight="700" letter-spacing="2">nSedo</text>
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>

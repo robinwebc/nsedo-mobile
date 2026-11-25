@@ -1,0 +1,40 @@
+---
+import Text from './Text.astro';
+import { SITE, safeJson } from '../data/site';
+import type { Lang } from '../data/phones';
+
+interface Crumb {
+  href: string;
+  label: Lang;
+}
+
+interface Props {
+  items: Crumb[];
+}
+
+const { items } = Astro.props;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.label.en,
+    item: new URL(item.href, SITE).href,
+  })),
+};
+---
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    {items.map((item, index) => (
+      <li>
+        {index < items.length - 1 ? (
+          <a href={item.href}><Text text={item.label} /></a>
+        ) : (
+          <Text text={item.label} />
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={safeJson(ld)}></script>

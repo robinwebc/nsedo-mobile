@@ -1,0 +1,18 @@
+---
+interface Props {
+  full?: boolean;
+}
+const { full = false } = Astro.props;
+---
+<span class="logo-lockup">
+  <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+    <rect x="1" y="1" width="30" height="30" rx="7" fill="#14202B" stroke="currentColor" stroke-width="1.25"></rect>
+    <rect x="7" y="6.5" width="5.25" height="19" rx="2.1" fill="#F4F1EB"></rect>
+    <rect x="14.75" y="6.5" width="10.25" height="5.25" rx="2.1" fill="#F4F1EB"></rect>
+    <rect x="19.75" y="15.25" width="5.25" height="10.25" rx="2.1" fill="#E4572E"></rect>
+  </svg>
+  <span class="logo-words">
+    <span class="logo-word">nSedo</span>
+    {full && <span class="logo-sub">Mobile</span>}
+  </span>
+</span>

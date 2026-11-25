@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Text from '../../components/Text.astro';
+import { L } from '../../data/phones';
+import { articles } from '../../data/news';
+import { page } from '../../data/site';
+---
+<Base
+  title="News"
+  description="Notes from nSedo Mobile: the first three phones, nSedo OS 2, the placeholder service list, and the nSedo social app."
+>
+  <main id="main">
+    <div class="wrap">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/news/'), label: L('News', 'খবর') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="News" bn="খবর" /></h1>
+        <p class="lede"><Text en="Notes from the company. Dates are the day the note was published here." bn="প্রতিষ্ঠানের নোট। তারিখ এই পাতায় নোট প্রকাশের দিন।" /></p>
+      </header>
+      <ul class="news-list">
+        {articles.map((article) => (
+          <li>
+            <time datetime={article.date}><Text text={article.dateLabel} /></time>
+            <h2><a href={page(`/news/${article.slug}/`)}><Text text={article.title} /></a></h2>
+            <p><Text text={article.standfirst} /></p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </main>
+</Base>

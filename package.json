@@ -1,0 +1,20 @@
+{
+  "name": "nsedo-mobile",
+  "private": true,
+  "version": "1.0.0",
+  "description": "nSedo Mobile official website",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/check-dist.mjs",
+    "preview": "astro preview",
+    "check": "node scripts/check-dist.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.6",
+    "astro": "5.18.2"
+  }
+}

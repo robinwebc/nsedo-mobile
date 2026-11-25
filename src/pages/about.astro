@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Text from '../components/Text.astro';
+import { L } from '../data/phones';
+import { EMAIL, mailto, page } from '../data/site';
+---
+<Base
+  title="About"
+  description="nSedo Mobile is Robin’s phone brand, based in Bangladesh. The X1, A5, and Go run nSedo OS on Android. No invented awards or retail deals."
+>
+  <main id="main">
+    <div class="wrap">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/about/'), label: L('About', 'পরিচিতি') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="About nSedo Mobile" bn="nSedo Mobile পরিচিতি" /></h1>
+        <p class="lede">
+          <Text
+            en="nSedo Mobile is Robin’s phone brand. Robin, on GitHub as robinwebc, is based in Bangladesh. The phones are a separate line from the nSedo social app."
+            bn="nSedo Mobile রবিনের ফোন ব্র্যান্ড। রবিন, GitHub-এ robinwebc, বাংলাদেশে থাকেন। ফোনগুলো nSedo সামাজিক অ্যাপ থেকে আলাদা একটি সারি।"
+          />
+        </p>
+      </header>
+
+      <section class="section prose" id="story" style="padding-top: 2rem">
+        <h2><Text en="The brief" bn="বর্ণনা" /></h2>
+        <Text
+          block
+          en="The first range started from a plain requirement. A phone should stay readable in bright sun, last through a long day, and ship with software the buyer can actually identify. The X1, the A5, and the Go are three prices for that requirement, not three different promises."
+          bn="প্রথম সারি শুরু হয়েছে একটি সাদামাটা শর্ত থেকে। ফোন উজ্জ্বল রোদে পড়া যাবে, দীর্ঘ দিন চলবে, আর এমন সফটওয়্যার নিয়ে আসবে যা ক্রেতা চিনতে পারে। X1, A5, ও Go সেই শর্তের তিনটি দাম, তিনটি আলাদা প্রতিশ্রুতি নয়।"
+        />
+        <Text
+          block
+          en="We are a small team. This site does not claim a carrier agreement, a shop chain, a lab certificate, or an award. Where a fact is not confirmed, the page says so. The service-centre list is the clearest example: cities and areas, marked placeholder, with no street address."
+          bn="আমরা ছোট একটি দল। এই সাইট অপারেটর চুক্তি, দোকানের চেইন, ল্যাব সনদ, বা পুরস্কার দাবি করে না। যা নিশ্চিত নয়, পাতায় তা বলা আছে। সার্ভিস সেন্টারের তালিকা সবচেয়ে স্পষ্ট উদাহরণ: শহর ও এলাকা, প্লেসহোল্ডার চিহ্নসহ, রাস্তার ঠিকানা ছাড়া।"
+        />
+        <Text
+          block
+          en="nSedo OS 2 sits on Android 15. It is our interface and our update schedule. It is not a private operating system, and it is not a partnership we are asking you to infer."
+          bn="nSedo OS 2 বসে Android 15-এর উপর। এটা আমাদের ইন্টারফেস ও আমাদের আপডেটের সময়সূচি। এটা আলাদা অপারেটিং সিস্টেম নয়, এবং এমন কোনো অংশীদারিত্ব নয় যা আপনাকে অনুমান করতে বলা হচ্ছে।"
+        />
+      </section>
+
+      <section class="section prose" id="careers" style="padding-top: 0">
+        <h2><Text en="Careers" bn="চাকরি" /></h2>
+        <Text
+          block
+          en="There is no applicant-tracking system and there is no posted vacancy with a salary. If you work on Android platform software, mechanical design, or service operations in Bangladesh, send a short note and a link to work you can show."
+          bn="আবেদন-বাছাইয়ের কোনো সিস্টেম নেই, এবং বেতনসহ কোনো বিজ্ঞপ্তিও নেই। আপনি যদি Android প্ল্যাটফর্ম সফটওয়্যার, যান্ত্রিক নকশা, বা বাংলাদেশে সার্ভিস পরিচালনায় কাজ করেন, একটি ছোট নোট ও দেখানো যায় এমন কাজের লিঙ্ক পাঠান।"
+        />
+        <p>
+          <a class="btn btn-primary" href={mailto('Careers — nSedo Mobile')}>{EMAIL}</a>
+        </p>
+      </section>
+
+      <section class="section prose" id="press" style="padding-top: 0">
+        <h2><Text en="Press" bn="সংবাদমাধ্যম" /></h2>
+        <Text
+          block
+          en="For a product question or an interview request, email robinwebc@gmail.com with the subject Press. We do not keep a page of clippings. Coverage that does not exist will not be invented here."
+          bn="পণ্যের প্রশ্ন বা সাক্ষাৎকারের অনুরোধের জন্য robinwebc@gmail.com-এ বিষয় Press দিয়ে ইমেইল করুন। কাটিংয়ের কোনো পাতা রাখি না। যা প্রকাশিত হয়নি, তা এখানে বানানো হবে না।"
+        />
+        <p>
+          <a class="btn btn-ghost" href={page('/news/')}><Text en="Company notes" bn="প্রতিষ্ঠানের নোট" /></a>
+        </p>
+      </section>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Text from '../components/Text.astro';
+import Price from '../components/Price.astro';
+import { groups, L, phones } from '../data/phones';
+import { page } from '../data/site';
+---
+<Base
+  title="Compare"
+  description="Compare the nSedo X1, A5, and Go: display, camera, battery, network, body, and software. Indicative prices in BDT."
+>
+  <main id="main">
+    <div class="wrap">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/compare/'), label: L('Compare', 'তুলনা') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="Compare" bn="তুলনা" /></h1>
+        <p class="lede">
+          <Text
+            en="All three phones are on this table. On a small screen, scroll sideways. The specification name stays put. Prices are indicative."
+            bn="তিনটি ফোনই এই ছকে। ছোট পর্দায় পাশে সরান। স্পেসিফিকেশনের নাম জায়গায় থাকে। দাম নির্দেশক।"
+          />
+        </p>
+      </header>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <caption class="visually-hidden"><Text en="Comparison of nSedo X1, A5, and Go" bn="nSedo X1, A5, ও Go-এর তুলনা" /></caption>
+          <thead>
+            <tr>
+              <th scope="col"><Text en="Specification" bn="স্পেসিফিকেশন" /></th>
+              {phones.map((phone) => (
+                <th scope="col"><a href={page(`/phones/${phone.slug}/`)}>{phone.name}</a></th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><Text en="Indicative price" bn="নির্দেশক দাম" /></th>
+              {phones.map((phone) => (
+                <td><Price amount={phone.priceFrom} from /></td>
+              ))}
+            </tr>
+            <tr>
+              <th scope="row"><Text en="Position" bn="জায়গা" /></th>
+              {phones.map((phone) => (
+                <td><Text text={phone.tier} /></td>
+              ))}
+            </tr>
+          </tbody>
+          {groups.map((group) => (
+            <tbody>
+              <tr>
+                <th scope="colgroup" colspan={phones.length + 1}><Text text={group.label} /></th>
+              </tr>
+              {group.rows.map((row) => (
+                <tr>
+                  <th scope="row"><Text text={row.label} /></th>
+                  {phones.map((phone) => (
+                    <td><Text text={phone.specs[row.id]} /></td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          ))}
+        </table>
+      </div>
+    </div>
+  </main>
+</Base>

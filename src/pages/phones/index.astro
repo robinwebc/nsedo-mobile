@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Text from '../../components/Text.astro';
+import Phone from '../../components/Phone.astro';
+import Price from '../../components/Price.astro';
+import { L, phones } from '../../data/phones';
+import { page } from '../../data/site';
+---
+<Base
+  title="Phones"
+  description="The nSedo Mobile range: X1 flagship, A5 mid-range, and Go entry phone. Indicative prices in BDT, from ৳16,990."
+>
+  <main id="main">
+    <div class="wrap">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/phones/'), label: L('Phones', 'ফোন') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="Phones" bn="ফোন" /></h1>
+        <p class="lede"><Text en="Three models. The price under each name is the lowest indicative price, in taka." bn="তিনটি মডেল। নামের নিচের দাম সর্বনিম্ন নির্দেশক দাম, টাকায়।" /></p>
+      </header>
+      <div class="phone-rows">
+        {phones.map((phone) => {
+          const color = phone.colors.find((item) => item.id === phone.defaultColor)!;
+          return (
+            <article class="phone-row">
+              <div class="phone-visual">
+                <Phone
+                  uid={`catalog-${phone.slug}`}
+                  view="back"
+                  back={color.back}
+                  chassis={color.chassis}
+                  tone={color.tone}
+                  cameras={phone.cameras}
+                  label={L(`${phone.name}, back, ${color.name.en}`, `${phone.name}, পেছন, ${color.name.bn}`)}
+                />
+              </div>
+              <div>
+                <p class="tier"><Text text={phone.tier} /></p>
+                <h2 style="margin-top: 0.3rem">{phone.name}</h2>
+                <p class="lede"><Text text={phone.summary} /></p>
+                <ul class="plain-list">
+                  {phone.highlights.map((item) => (
+                    <li><Text text={item.value} /></li>
+                  ))}
+                </ul>
+                <p class="price-lg" style="margin-top: 1rem"><Price amount={phone.priceFrom} from /></p>
+                <div class="actions">
+                  <a class="btn btn-primary" href={page(`/phones/${phone.slug}/`)}><Text en="Specifications" bn="স্পেসিফিকেশন" /></a>
+                  <a class="btn btn-ghost" href={page('/compare/')}><Text en="Compare" bn="তুলনা" /></a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+</Base>

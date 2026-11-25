@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Text from '../components/Text.astro';
+import { L } from '../data/phones';
+import { EMAIL, page } from '../data/site';
+---
+<Base
+  title="Terms"
+  description="Terms for the nSedo Mobile website. Indicative prices in BDT, no online sale, and no payment collection."
+>
+  <main id="main">
+    <article class="wrap prose" style="padding-bottom: 4rem">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/terms/'), label: L('Terms', 'শর্তাবলি') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="Terms" bn="শর্তাবলি" /></h1>
+        <p class="fine"><Text en="25 November 2026" bn="২৫ নভেম্বর ২০২৬" /></p>
+      </header>
+      <Text block en="These terms explain how this website works. They are not a shop contract. This website does not sell a phone, reserve a unit, or take money." bn="এই শর্তাবলি বোঝায় এই ওয়েবসাইট কীভাবে কাজ করে। এগুলো দোকানের চুক্তি নয়। এই ওয়েবসাইট ফোন বিক্রি করে না, কোনো ইউনিট আটকে রাখে না, এবং টাকা নেয় না।" />
+      <h2><Text en="Prices" bn="দাম" /></h2>
+      <Text block en="Prices are shown in Bangladeshi taka and marked indicative. They are not an offer we are obliged to honour at that figure. A later retail price can differ. Memory options on a model page change the indicative figure for that option." bn="দাম বাংলাদেশি টাকায় দেখানো এবং নির্দেশক হিসেবে চিহ্নিত। সেই অঙ্কে দিতে আমরা বাধ্য এমন কোনো প্রস্তাব এটি নয়। পরের খুচরা দাম আলাদা হতে পারে। মডেল পাতায় মেমরি বিকল্প বদলালে সেই বিকল্পের নির্দেশক অঙ্ক বদলায়।" />
+      <h2><Text en="Notify me and the contact form" bn="জানান ও যোগাযোগ ফর্ম" /></h2>
+      <Text block en="Both open your email program. Sending that email does not create an order, a deposit, or a queue position." bn="দুটোই আপনার ইমেইল প্রোগ্রাম খোলে। সেই ইমেইল পাঠালে অর্ডার, অগ্রিম, বা সারিতে জায়গা তৈরি হয় না।" />
+      <h2><Text en="Specifications" bn="স্পেসিফিকেশন" /></h2>
+      <Text block en="Specifications are the figures we publish for each model. If a figure is wrong, we will correct the page. A flat preview of a colour is a drawing of the finish, not a photograph of a finished handset." bn="স্পেসিফিকেশন প্রতিটি মডেলের জন্য আমরা যে অঙ্ক প্রকাশ করি। কোনো অঙ্ক ভুল হলে পাতা সংশোধন করা হবে। রঙের সমতল প্রিভিউ ফিনিশের একটি আঁকা ছবি, তৈরি হ্যান্ডসেটের আলোকচিত্র নয়।" />
+      <h2><Text en="The name" bn="নাম" /></h2>
+      <Text block en="The nSedo name, the wordmark on this site, and the phone drawings are used by nSedo Mobile. Please do not copy the mark and present it as your own product." bn="nSedo নাম, এই সাইটের ওয়ার্ডমার্ক, এবং ফোনের আঁকা ছবি nSedo Mobile ব্যবহার করে। দয়া করে চিহ্নটি নিয়ে নিজের পণ্য বলে দেখাবেন না।" />
+      <h2><Text en="The nSedo app" bn="nSedo অ্যাপ" /></h2>
+      <Text block en="Links to GitHub releases leave this website. The app is a separate product. Its release notes describe what you are installing. This website does not charge for that download." bn="GitHub রিলিজের লিঙ্ক এই ওয়েবসাইটের বাইরে নিয়ে যায়। অ্যাপ আলাদা পণ্য। এর রিলিজ নোট বলে আপনি কী বসাচ্ছেন। এই ওয়েবসাইট সেই ডাউনলোডের জন্য টাকা নেয় না।" />
+      <h2><Text en="Contact" bn="যোগাযোগ" /></h2>
+      <Text block en={`Questions about these terms: ${EMAIL}. The site is published from Bangladesh.`} bn={`এই শর্ত নিয়ে প্রশ্ন: ${EMAIL}। সাইটটি বাংলাদেশ থেকে প্রকাশিত।`} />
+    </article>
+  </main>
+</Base>

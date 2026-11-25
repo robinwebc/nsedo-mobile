@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Text from '../components/Text.astro';
+import { L } from '../data/phones';
+import { EMAIL, page } from '../data/site';
+---
+<Base
+  title="Warranty policy"
+  description="nSedo Mobile limited warranty: 12 months for manufacturing defects in Bangladesh, with a proof of purchase. No water-resistance rating."
+>
+  <main id="main">
+    <article class="wrap prose" style="padding-bottom: 4rem">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/warranty/'), label: L('Warranty policy', 'ওয়ারেন্টি নীতি') },
+      ]} />
+      <header class="page-intro">
+        <h1><Text en="Warranty policy" bn="ওয়ারেন্টি নীতি" /></h1>
+        <p class="fine"><Text en="25 November 2026" bn="২৫ নভেম্বর ২০২৬" /></p>
+      </header>
+      <Text block en="This is the limited hardware warranty for nSedo Mobile phones, as published by us. It is not a certificate from a third party. It applies to the X1, the A5, and the Go unless a later policy on this page says otherwise." bn="এটি nSedo Mobile ফোনের সীমিত হার্ডওয়্যার ওয়ারেন্টি, আমাদের প্রকাশিত। এটি কোনো তৃতীয় পক্ষের সনদ নয়। X1, A5, ও Go-এর জন্য প্রযোজ্য, যদি না এই পাতার পরের কোনো নীতি অন্য কথা বলে।" />
+      <h2><Text en="Length and who it is for" bn="মেয়াদ ও কাদের জন্য" /></h2>
+      <Text block en="Twelve months from the date on your proof of purchase. It is for customers in Bangladesh. Keep the proof. A claim without it can be refused." bn="ক্রয়ের প্রমাণের তারিখ থেকে বারো মাস। বাংলাদেশের ক্রেতাদের জন্য। প্রমাণটি রাখুন। এটি ছাড়া দাবি প্রত্যাখ্যাত হতে পারে।" />
+      <h2><Text en="What is covered" bn="কী কভার হয়" /></h2>
+      <Text block en="A defect in materials or workmanship under ordinary use. A battery that fails to hold a charge because of a defect, within the twelve months, is covered. A battery that simply holds less charge as it ages is not, by itself, a defect." bn="সাধারণ ব্যবহারে উপাদান বা কারুকাজের ত্রুটি। বারো মাসের মধ্যে ত্রুটির কারণে চার্জ ধরে রাখতে না পারা ব্যাটারি কভার হয়। সময়ের সঙ্গে চার্জ কম ধরা, একা, ত্রুটি নয়।" />
+      <h2><Text en="What is not covered" bn="কী কভার হয় না" /></h2>
+      <Text block en="Cracked or scratched glass, liquid damage, damage from a drop, misuse, and any repair or opening done by someone we did not authorise. The phones do not carry an ingress-protection rating. Do not describe them as waterproof, and do not expect this warranty to treat them as if they were." bn="ফাটা বা আঁচড়-কাটা কাচ, পানির ক্ষতি, পড়ে যাওয়ার ক্ষতি, অপব্যবহার, এবং আমাদের অনুমতি ছাড়া কারও মেরামত বা খোলা। ফোনের ইনগ্রেস-প্রোটেকশন রেটিং নেই। সেগুলোকে পানিরোধী বলবেন না, এবং এই ওয়ারেন্টি যেন পানিরোধী ফোনের মতো আচরণ করবে তা আশা করবেন না।" />
+      <h2><Text en="How to claim" bn="কীভাবে দাবি করবেন" /></h2>
+      <Text block en={`Email ${EMAIL} with the subject Warranty. Include the model, the IMEI, a photo of the proof of purchase, and a short description of the fault. We will reply with the next step. Until a service centre is confirmed on the support page, do not go to a placeholder city expecting a counter.`} bn={`বিষয় Warranty দিয়ে ${EMAIL}-এ ইমেইল করুন। মডেল, IMEI, ক্রয়ের প্রমাণের ছবি, এবং ত্রুটির সংক্ষিপ্ত বর্ণনা দিন। পরের ধাপ জানিয়ে উত্তর দেব। সহায়তা পাতায় সার্ভিস সেন্টার নিশ্চিত না হওয়া পর্যন্ত প্লেসহোল্ডার শহরে কাউন্টার আশা করে যাবেন না।`} />
+      <h2><Text en="What we will do" bn="আমরা কী করব" /></h2>
+      <Text block en="If the claim is inside this policy, we will repair the phone or replace the defective part. If we cannot, we will replace the phone with the same model or a model of similar specification. Replacement does not start a new twelve months. The original purchase date still counts." bn="দাবি এই নীতির মধ্যে হলে ফোন মেরামত করব বা ত্রুটিপূর্ণ অংশ বদলাব। না পারলে একই মডেল বা কাছাকাছি স্পেসিফিকেশনের মডেল দিয়ে ফোন বদলাব। প্রতিস্থাপন নতুন বারো মাস শুরু করে না। মূল ক্রয়ের তারিখই গণনা হয়।" />
+      <h2><Text en="This page can change" bn="এই পাতা বদলাতে পারে" /></h2>
+      <Text block en="The date at the top is the revision. A warranty that already started keeps the terms that applied on the purchase date, unless a change is required by law and that law says otherwise." bn="উপরের তারিখ সংশোধনের তারিখ। যা ওয়ারেন্টি ইতিমধ্যে শুরু হয়েছে, ক্রয়ের দিনে যে শর্ত ছিল তাই থাকবে, যদি না আইন কোনো বদল বাধ্য করে এবং সেই আইন অন্য কথা বলে।" />
+      <p><a href={page('/support/#warranty')}><Text en="Back to support" bn="সহায়তায় ফিরুন" /></a></p>
+    </article>
+  </main>
+</Base>

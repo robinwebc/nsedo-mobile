@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Text from '../../components/Text.astro';
+import { L } from '../../data/phones';
+import { articles, type Article } from '../../data/news';
+import { absAsset, absPage, page } from '../../data/site';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: article.title.en,
+  datePublished: article.date,
+  dateModified: article.date,
+  description: article.standfirst.en,
+  inLanguage: 'en',
+  mainEntityOfPage: absPage(`/news/${article.slug}/`),
+  image: absAsset('og.png'),
+  author: { '@type': 'Organization', name: 'nSedo Mobile', url: absPage('/') },
+  publisher: {
+    '@type': 'Organization',
+    name: 'nSedo Mobile',
+    logo: { '@type': 'ImageObject', url: absAsset('icon-512.png') },
+  },
+};
+---
+<Base
+  title={article.title.en}
+  description={article.standfirst.en}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <main id="main">
+    <article class="wrap prose" style="padding-bottom: 4rem">
+      <Breadcrumb items={[
+        { href: page('/'), label: L('Home', 'নীড়') },
+        { href: page('/news/'), label: L('News', 'খবর') },
+        { href: page(`/news/${article.slug}/`), label: article.title },
+      ]} />
+      <header class="page-intro">
+        <p class="article-date"><time datetime={article.date}><Text text={article.dateLabel} /></time></p>
+        <h1><Text text={article.title} /></h1>
+        <p class="lede"><Text text={article.standfirst} /></p>
+      </header>
+      {article.paragraphs.map((paragraph) => (
+        <Text block text={paragraph} />
+      ))}
+      <p style="margin-top: 2rem"><a href={page('/news/')}><Text en="All notes" bn="সব নোট" /></a></p>
+    </article>
+  </main>
+</Base>

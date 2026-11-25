@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Text from '../components/Text.astro';
+import { page } from '../data/site';
+---
+<Base title="Page not found" description="That page is not on the nSedo Mobile site." noindex>
+  <main id="main">
+    <div class="wrap missing">
+      <p class="eyebrow"><span class="tick" aria-hidden="true"></span><Text en="404" bn="৪০৪" /></p>
+      <h1><Text en="This page is not here" bn="এই পাতা এখানে নেই" /></h1>
+      <p class="lede"><Text en="The address may be mistyped, or the page may have moved." bn="ঠিকানা ভুল হতে পারে, অথবা পাতা সরে গেছে।" /></p>
+      <ul>
+        <li><a href={page('/')}><Text en="Home" bn="নীড়" /></a></li>
+        <li><a href={page('/phones/')}><Text en="Phones" bn="ফোন" /></a></li>
+        <li><a href={page('/compare/')}><Text en="Compare" bn="তুলনা" /></a></li>
+        <li><a href={page('/support/')}><Text en="Support" bn="সহায়তা" /></a></li>
+      </ul>
+    </div>
+  </main>
+</Base>

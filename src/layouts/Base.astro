@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import manropeUrl from '../fonts/manrope-latin.woff2';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { absAsset, asset, safeJson } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, noindex = false, ogType = 'website', jsonLd } = Astro.props;
+const fullTitle = title === 'nSedo Mobile' ? title : `${title} · nSedo Mobile`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const image = absAsset('og.png');
+const imageAlt = 'nSedo Mobile. Phones for Bangladesh.';
+const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <meta name="author" content="nSedo Mobile" />
+    <meta name="theme-color" content="#F4F1EB" />
+    {noindex ? <meta name="robots" content="noindex" /> : <meta name="robots" content="index, follow" />}
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="og:site_name" content="nSedo Mobile" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="bn_BD" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={asset('favicon-32.png')} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
+    <link rel="manifest" href={asset('site.webmanifest')} />
+    <link rel="preload" href={manropeUrl} as="font" type="font/woff2" crossorigin />
+    <script is:inline>
+      try {
+        var stored = localStorage.getItem('nsedo-lang');
+        if (stored === 'bn' || stored === 'en') document.documentElement.lang = stored;
+      } catch (err) {}
+    </script>
+    {blocks.map((block) => (
+      <script type="application/ld+json" set:html={safeJson(block)} />
+    ))}
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+    <script is:inline src={asset('site.js')} defer></script>
+  </body>
+</html>
